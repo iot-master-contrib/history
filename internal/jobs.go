@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"github.com/iot-master-contribe/history/config"
 	"github.com/iot-master-contribe/history/types"
 	"github.com/robfig/cron/v3"
 	"github.com/zgwit/iot-master/v3/model"
@@ -14,8 +15,9 @@ var _cron *cron.Cron
 
 func StartJobs() error {
 	_cron = cron.New()
-	_, err := _cron.AddFunc("* * * * *", storeJob) //测试，每分钟执行一次
+	//_, err := _cron.AddFunc("* * * * *", storeJob) //测试，每分钟执行一次
 	//_, err := _cron.AddFunc("@hourly", storeJob)
+	_, err := _cron.AddFunc(config.Config.Crontab, storeJob)
 	if err != nil {
 		return err
 	}
@@ -28,18 +30,21 @@ func StopJobs() {
 	_cron.Stop()
 }
 
+var last int64
+
 func storeJob() {
 	now := time.Now()
 	tm := model.Time(now)
-	ts := now.Unix()
+	//ts := now.Unix()
 
-	log.Info("[Job] store start", now)
+	log.Info("[Job] store start ", now)
 
 	var stores []types.History
 	devices.Range(func(id string, dev *Device) bool {
 		//如果没有新数据，就不保存
-		if ts-dev.Update < 3600 {
-			//清空历史，避免错误
+		if dev.Update < last {
+			//log.Info("skip", id, "offline")
+			//清空历史，避免计算错误
 			dev.Values = map[string]float64{}
 			dev.Last = map[string]float64{}
 			return true
@@ -73,6 +78,10 @@ func storeJob() {
 		return true
 	})
 
+	//更新上一次时间
+	last = now.Unix()
+
+	//入库
 	if len(stores) > 0 {
 		n, err := db.Engine.Insert(stores)
 		if err != nil {

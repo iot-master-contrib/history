@@ -9,9 +9,6 @@ import (
 	"time"
 )
 
-var last = map[string]map[string]float64{}
-var current = map[string]map[string]float64{}
-
 func SubscribeProperty(client mqtt.Client) {
 	//订阅消息
 	client.Subscribe("up/property/+/+", 0, func(client mqtt.Client, message mqtt.Message) {

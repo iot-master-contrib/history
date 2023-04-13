@@ -11,6 +11,7 @@ import (
 )
 
 type Configure struct {
+	Crontab  string                       `json:"crontab"`
 	Web      web.Options                  `json:"web"`
 	Database db.Options                   `json:"database"`
 	Mqtt     mqtt.Options                 `json:"mqtt"`
@@ -20,6 +21,7 @@ type Configure struct {
 }
 
 var Config = Configure{
+	Crontab:  "0 0 * * * *", //默认 1h
 	Web:      web.Default(),
 	Database: db.Default(),
 	Mqtt:     mqtt.Default(),
