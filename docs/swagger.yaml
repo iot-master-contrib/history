@@ -1,0 +1,152 @@
+basePath: /app/history/api/
+definitions:
+  api.ParamSearch:
+    properties:
+      filter:
+        additionalProperties: true
+        type: object
+      keyword:
+        additionalProperties:
+          type: string
+        type: object
+      limit:
+        type: integer
+      skip:
+        type: integer
+      sort:
+        additionalProperties:
+          type: integer
+        type: object
+    type: object
+  api.ReplyData-int64:
+    properties:
+      data:
+        type: integer
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_History:
+    properties:
+      data:
+        $ref: '#/definitions/types.History'
+      error:
+        type: string
+    type: object
+  api.ReplyList-types_History:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/types.History'
+        type: array
+      error:
+        type: string
+      total:
+        type: integer
+    type: object
+  types.History:
+    properties:
+      device_id:
+        type: string
+      id:
+        type: integer
+      point:
+        type: string
+      time:
+        type: string
+      value:
+        type: number
+    type: object
+info:
+  contact: {}
+  description: API文档
+  title: 历史数据接口文档
+  version: 1.0 版本
+paths:
+  /history/{id}/delete:
+    get:
+      consumes:
+      - application/json
+      description: 删除历史
+      parameters:
+      - description: 历史ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_History'
+      summary: 删除历史
+      tags:
+      - history
+  /history/count:
+    post:
+      consumes:
+      - application/json
+      description: 查询历史
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 查询历史数量
+      tags:
+      - history
+  /history/list:
+    get:
+      consumes:
+      - application/json
+      description: 查询历史
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: skip
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_History'
+      summary: 查询历史
+      tags:
+      - history
+  /history/search:
+    post:
+      consumes:
+      - application/json
+      description: 查询历史
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_History'
+      summary: 查询历史
+      tags:
+      - history
+swagger: "2.0"
