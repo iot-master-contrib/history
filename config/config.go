@@ -21,7 +21,7 @@ type Configure struct {
 }
 
 var Config = Configure{
-	Crontab:  "0 0 * * * *", //默认 1h
+	Crontab:  "0 * * * *", //默认 1h
 	Web:      web.Default(),
 	Database: db.Default(),
 	Mqtt:     mqtt.Default(),
