@@ -4,6 +4,8 @@ import "github.com/gin-gonic/gin"
 
 func RegisterRoutes(app *gin.RouterGroup) {
 
-	historyRouter(app.Group("/history"))
+	queryRouter(app.Group("/query"))
+
+	aggregateRouter(app.Group("/aggregateHistory"))
 
 }

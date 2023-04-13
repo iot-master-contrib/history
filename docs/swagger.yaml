@@ -18,6 +18,13 @@ definitions:
           type: integer
         type: object
     type: object
+  api.ReplyData-api_Result:
+    properties:
+      data:
+        $ref: '#/definitions/api.Result'
+      error:
+        type: string
+    type: object
   api.ReplyData-int64:
     properties:
       data:
@@ -43,6 +50,13 @@ definitions:
       total:
         type: integer
     type: object
+  api.Result:
+    properties:
+      name:
+        type: string
+      total:
+        type: number
+    type: object
   types.History:
     properties:
       device_id:
@@ -62,7 +76,316 @@ info:
   title: 历史数据接口文档
   version: 1.0 版本
 paths:
-  /history/{id}/delete:
+  /aggregate:
+    get:
+      description: 原始数据按时间统计
+      parameters:
+      - description: 设备区域
+        in: query
+        name: area
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      - description: 设备分组
+        in: query
+        name: group
+        type: string
+      - description: 数据点位
+        in: query
+        name: point
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 设备类型
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 原始数据按时间统计
+      tags:
+      - aggregate
+  /aggregate/area:
+    get:
+      description: 按区域统计
+      parameters:
+      - description: 数据点
+        in: query
+        name: point
+        required: true
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 按区域统计
+      tags:
+      - aggregate
+  /aggregate/day:
+    get:
+      description: 按日统计
+      parameters:
+      - description: 设备区域
+        in: query
+        name: area
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      - description: 设备分组
+        in: query
+        name: group
+        type: string
+      - description: 数据点位
+        in: query
+        name: point
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 设备类型
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 按日统计
+      tags:
+      - aggregate
+  /aggregate/group:
+    get:
+      description: 按分组统计
+      parameters:
+      - description: 数据点
+        in: query
+        name: point
+        required: true
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 按分组统计
+      tags:
+      - aggregate
+  /aggregate/hour:
+    get:
+      description: 按小时统计
+      parameters:
+      - description: 设备区域
+        in: query
+        name: area
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      - description: 设备分组
+        in: query
+        name: group
+        type: string
+      - description: 数据点位
+        in: query
+        name: point
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 设备类型
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 按小时统计
+      tags:
+      - aggregate
+  /aggregate/minute:
+    get:
+      description: 按分钟统计
+      parameters:
+      - description: 设备区域
+        in: query
+        name: area
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      - description: 设备分组
+        in: query
+        name: group
+        type: string
+      - description: 数据点位
+        in: query
+        name: point
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 设备类型
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 按分钟统计
+      tags:
+      - aggregate
+  /aggregate/month:
+    get:
+      description: 按月统计
+      parameters:
+      - description: 设备区域
+        in: query
+        name: area
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      - description: 设备分组
+        in: query
+        name: group
+        type: string
+      - description: 数据点位
+        in: query
+        name: point
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 设备类型
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 按月统计
+      tags:
+      - aggregate
+  /aggregate/type:
+    get:
+      description: 按类型统计
+      parameters:
+      - description: 数据点
+        in: query
+        name: point
+        required: true
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 按类型统计
+      tags:
+      - aggregate
+  /aggregate/year:
+    get:
+      description: 按年统计
+      parameters:
+      - description: 设备区域
+        in: query
+        name: area
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: string
+      - description: 设备分组
+        in: query
+        name: group
+        type: string
+      - description: 数据点位
+        in: query
+        name: point
+        type: string
+      - description: 起始时间
+        in: query
+        name: start
+        type: string
+      - description: 设备类型
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-api_Result'
+      summary: 按年统计
+      tags:
+      - aggregate
+  /query/{id}/delete:
     get:
       consumes:
       - application/json
@@ -82,8 +405,8 @@ paths:
             $ref: '#/definitions/api.ReplyData-types_History'
       summary: 删除历史
       tags:
-      - history
-  /history/count:
+      - query
+  /query/count:
     post:
       consumes:
       - application/json
@@ -104,8 +427,8 @@ paths:
             $ref: '#/definitions/api.ReplyData-int64'
       summary: 查询历史数量
       tags:
-      - history
-  /history/list:
+      - query
+  /query/list:
     get:
       consumes:
       - application/json
@@ -126,8 +449,8 @@ paths:
             $ref: '#/definitions/api.ReplyList-types_History'
       summary: 查询历史
       tags:
-      - history
-  /history/search:
+      - query
+  /query/search:
     post:
       consumes:
       - application/json
@@ -148,5 +471,5 @@ paths:
             $ref: '#/definitions/api.ReplyList-types_History'
       summary: 查询历史
       tags:
-      - history
+      - query
 swagger: "2.0"

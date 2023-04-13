@@ -15,7 +15,478 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/history/count": {
+        "/aggregate": {
+            "get": {
+                "description": "原始数据按时间统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "原始数据按时间统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备区域",
+                        "name": "area",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备分组",
+                        "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "数据点位",
+                        "name": "point",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备类型",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/aggregate/area": {
+            "get": {
+                "description": "按区域统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "按区域统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "数据点",
+                        "name": "point",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/aggregate/day": {
+            "get": {
+                "description": "按日统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "按日统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备区域",
+                        "name": "area",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备分组",
+                        "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "数据点位",
+                        "name": "point",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备类型",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/aggregate/group": {
+            "get": {
+                "description": "按分组统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "按分组统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "数据点",
+                        "name": "point",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/aggregate/hour": {
+            "get": {
+                "description": "按小时统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "按小时统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备区域",
+                        "name": "area",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备分组",
+                        "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "数据点位",
+                        "name": "point",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备类型",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/aggregate/minute": {
+            "get": {
+                "description": "按分钟统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "按分钟统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备区域",
+                        "name": "area",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备分组",
+                        "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "数据点位",
+                        "name": "point",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备类型",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/aggregate/month": {
+            "get": {
+                "description": "按月统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "按月统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备区域",
+                        "name": "area",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备分组",
+                        "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "数据点位",
+                        "name": "point",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备类型",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/aggregate/type": {
+            "get": {
+                "description": "按类型统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "按类型统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "数据点",
+                        "name": "point",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/aggregate/year": {
+            "get": {
+                "description": "按年统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "aggregate"
+                ],
+                "summary": "按年统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备区域",
+                        "name": "area",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束时间",
+                        "name": "end",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备分组",
+                        "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "数据点位",
+                        "name": "point",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备类型",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/query/count": {
             "post": {
                 "description": "查询历史",
                 "consumes": [
@@ -25,7 +496,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "history"
+                    "query"
                 ],
                 "summary": "查询历史数量",
                 "parameters": [
@@ -49,7 +520,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/history/list": {
+        "/query/list": {
             "get": {
                 "description": "查询历史",
                 "consumes": [
@@ -59,7 +530,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "history"
+                    "query"
                 ],
                 "summary": "查询历史",
                 "parameters": [
@@ -84,7 +555,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/history/search": {
+        "/query/search": {
             "post": {
                 "description": "查询历史",
                 "consumes": [
@@ -94,7 +565,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "history"
+                    "query"
                 ],
                 "summary": "查询历史",
                 "parameters": [
@@ -118,7 +589,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/history/{id}/delete": {
+        "/query/{id}/delete": {
             "get": {
                 "description": "删除历史",
                 "consumes": [
@@ -128,7 +599,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "history"
+                    "query"
                 ],
                 "summary": "删除历史",
                 "parameters": [
@@ -179,6 +650,17 @@ const docTemplate = `{
                 }
             }
         },
+        "api.ReplyData-api_Result": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/api.Result"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
         "api.ReplyData-int64": {
             "type": "object",
             "properties": {
@@ -215,6 +697,17 @@ const docTemplate = `{
                 },
                 "total": {
                     "type": "integer"
+                }
+            }
+        },
+        "api.Result": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "number"
                 }
             }
         },
