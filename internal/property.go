@@ -6,6 +6,7 @@ import (
 	"github.com/iot-master-contribe/history/config"
 	"github.com/zgwit/iot-master/v3/pkg/convert"
 	"strings"
+	"time"
 )
 
 var last = map[string]map[string]float64{}
@@ -34,6 +35,7 @@ func SubscribeProperty(client mqtt.Client) {
 
 		dev := EnsureDevice(id)
 		dev.Store = store
+		dev.Update = time.Now().Unix()
 
 		//缓存当前值
 		for k, _ := range store {

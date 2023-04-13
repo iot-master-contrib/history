@@ -30,7 +30,7 @@ var Config = Configure{
 			Name:    "历史保存",
 			Address: "http://localhost:40002",
 			Entries: []model.AppEntry{
-				{Name: "历史记录", Path: ""},
+				{Name: "历史查询", Path: ""},
 				{Name: "配置", Path: "config"},
 			},
 		},

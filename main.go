@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/iot-master-contribe/history/api"
 	"github.com/iot-master-contribe/history/config"
+	_ "github.com/iot-master-contribe/history/docs"
 	"github.com/iot-master-contribe/history/internal"
 	"github.com/iot-master-contribe/history/types"
 	"github.com/zgwit/iot-master/v3/pkg/db"
