@@ -8,6 +8,8 @@ import (
 	_ "github.com/iot-master-contribe/history/docs"
 	"github.com/iot-master-contribe/history/internal"
 	"github.com/iot-master-contribe/history/types"
+	"github.com/zgwit/iot-master/v3/pkg/banner"
+	"github.com/zgwit/iot-master/v3/pkg/build"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
@@ -33,6 +35,9 @@ func getConfigureName() string {
 // @BasePath /app/history/api/
 // @query.collection.format multi
 func main() {
+	banner.Print()
+	build.Print()
+
 	cfg := getConfigureName()
 	err := config.Load(cfg)
 	if err != nil {

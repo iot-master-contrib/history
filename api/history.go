@@ -50,6 +50,10 @@ func noopHistoryList() {}
 // @Router /history/{id}/delete [get]
 func noopHistoryDelete() {}
 
+func historyExport(ctx *gin.Context) {
+
+}
+
 func historyRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.History]())
@@ -60,4 +64,5 @@ func historyRouter(app *gin.RouterGroup) {
 
 	app.GET("/:id/delete", curd.ParseParamId, curd.ApiDelete[types.History](nil, nil))
 
+	app.POST("/export", historyExport)
 }
