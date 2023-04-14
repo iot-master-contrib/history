@@ -6,6 +6,6 @@ func RegisterRoutes(app *gin.RouterGroup) {
 
 	queryRouter(app.Group("/query"))
 
-	aggregateRouter(app.Group("/aggregateHistory"))
+	aggregateRouter(app.Group("/aggregate"))
 
 }
