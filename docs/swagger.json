@@ -1087,6 +1087,21 @@
                 }
             }
         },
+        "types.Aggregator": {
+            "type": "object",
+            "properties": {
+                "assign": {
+                    "type": "string"
+                },
+                "expression": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "inc avg count min max sum last first",
+                    "type": "string"
+                }
+            }
+        },
         "types.History": {
             "type": "object",
             "properties": {
@@ -1110,6 +1125,12 @@
         "types.Job": {
             "type": "object",
             "properties": {
+                "aggregators": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.Aggregator"
+                    }
+                },
                 "created": {
                     "type": "string"
                 },
@@ -1128,25 +1149,7 @@
                 "name": {
                     "type": "string"
                 },
-                "points": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/types.Point"
-                    }
-                },
                 "product_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.Point": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "type": {
-                    "description": "store increase average count",
                     "type": "string"
                 }
             }

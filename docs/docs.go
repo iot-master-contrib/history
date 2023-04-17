@@ -1094,6 +1094,21 @@ const docTemplate = `{
                 }
             }
         },
+        "types.Aggregator": {
+            "type": "object",
+            "properties": {
+                "assign": {
+                    "type": "string"
+                },
+                "expression": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "inc avg count min max sum last first",
+                    "type": "string"
+                }
+            }
+        },
         "types.History": {
             "type": "object",
             "properties": {
@@ -1117,6 +1132,12 @@ const docTemplate = `{
         "types.Job": {
             "type": "object",
             "properties": {
+                "aggregators": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.Aggregator"
+                    }
+                },
                 "created": {
                     "type": "string"
                 },
@@ -1135,25 +1156,7 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "points": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/types.Aggregator"
-                    }
-                },
                 "product_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.Aggregator": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "type": {
-                    "description": "store increase average count",
                     "type": "string"
                 }
             }

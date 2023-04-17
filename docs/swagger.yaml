@@ -77,6 +77,16 @@ definitions:
       total:
         type: number
     type: object
+  types.Aggregator:
+    properties:
+      assign:
+        type: string
+      expression:
+        type: string
+      type:
+        description: inc avg count min max sum last first
+        type: string
+    type: object
   types.History:
     properties:
       device_id:
@@ -92,6 +102,10 @@ definitions:
     type: object
   types.Job:
     properties:
+      aggregators:
+        items:
+          $ref: '#/definitions/types.Aggregator'
+        type: array
       created:
         type: string
       crontab:
@@ -104,19 +118,7 @@ definitions:
         type: string
       name:
         type: string
-      points:
-        items:
-          $ref: '#/definitions/types.Point'
-        type: array
       product_id:
-        type: string
-    type: object
-  types.Point:
-    properties:
-      name:
-        type: string
-      type:
-        description: store increase average count
         type: string
     type: object
 info:
