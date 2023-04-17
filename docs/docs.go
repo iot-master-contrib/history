@@ -1138,7 +1138,7 @@ const docTemplate = `{
                 "points": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/types.Point"
+                        "$ref": "#/definitions/types.Aggregator"
                     }
                 },
                 "product_id": {
@@ -1146,7 +1146,7 @@ const docTemplate = `{
                 }
             }
         },
-        "types.Point": {
+        "types.Aggregator": {
             "type": "object",
             "properties": {
                 "name": {
