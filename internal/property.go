@@ -3,10 +3,7 @@ package internal
 import (
 	"encoding/json"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"github.com/zgwit/iot-master/v3/pkg/convert"
-	"history/config"
 	"strings"
-	"time"
 )
 
 func SubscribeProperty(client mqtt.Client) {
@@ -16,12 +13,6 @@ func SubscribeProperty(client mqtt.Client) {
 		pid := topics[2]
 		id := topics[3]
 
-		//不关心的数据，不处理
-		store, ok := config.Config.Store[pid]
-		if !ok {
-			return
-		}
-
 		//解析数据
 		var properties map[string]interface{}
 		err := json.Unmarshal(message.Payload(), &properties)
@@ -30,16 +21,6 @@ func SubscribeProperty(client mqtt.Client) {
 			return
 		}
 
-		dev := EnsureDevice(id)
-		dev.Store = store
-		dev.Update = time.Now().Unix()
-
-		//缓存当前值
-		for k, _ := range store {
-			if v, ok := properties[k]; ok {
-				dev.Values[k] = convert.ToFloat64(v)
-			}
-		}
-
+		Push(pid, id, properties)
 	})
 }

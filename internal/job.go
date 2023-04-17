@@ -13,25 +13,59 @@ import (
 
 var _cron *cron.Cron
 
-type Job struct {
-	projectId   string
+type Device struct {
 	aggregators []aggregator.Aggregator
-	devices     lib.Map[Device]
+}
+
+func (d *Device) Push(ctx map[string]interface{}) {
+	for _, a := range d.aggregators {
+		err := a.Push(ctx)
+		if err != nil {
+			log.Error(err)
+		}
+	}
+}
+
+type Job struct {
+	model   types.Job
+	devices lib.Map[Device]
+}
+
+func (j *Job) Push(id string, ctx map[string]interface{}) {
+	dev := j.devices.Load(id)
+	if dev == nil {
+		dev = &Device{}
+		j.devices.Store(id, dev)
+
+		for _, a := range j.model.Aggregators {
+			aa, ee := aggregator.New(&a)
+			if ee != nil {
+				log.Error(ee)
+				continue
+			}
+			dev.aggregators = append(dev.aggregators, aa)
+		}
+	}
+	dev.Push(ctx)
+}
+
+func Push(pid, id string, ctx map[string]interface{}) {
+	jobs.Range(func(name string, job *Job) bool {
+		if job.model.ProductId != pid {
+			return true
+		}
+
+		job.Push(id, ctx)
+		return true
+	})
 }
 
 var jobs lib.Map[Job]
 
 func NewJob(job *types.Job) error {
 	//job.ProductId
-	j := &Job{}
-
-	for _, m := range job.Aggregators {
-		//此处会重复编译
-		a, err := aggregator.New(&m)
-		if err != nil {
-			return err
-		}
-		j.aggregators = append(j.aggregators, a)
+	j := &Job{
+		model: *job,
 	}
 
 	_, err := _cron.AddFunc(job.Crontab, func() {
@@ -43,16 +77,11 @@ func NewJob(job *types.Job) error {
 
 		var stores []types.History
 		j.devices.Range(func(name string, dev *Device) bool {
-			for k, m := range j.aggregators {
-				if !m.Dirty() {
-					continue
-				}
-
-				value := m.Value()
+			for k, m := range dev.aggregators {
 				stores = append(stores, types.History{
 					DeviceId: "",
 					Point:    job.Aggregators[k].Assign,
-					Value:    value,
+					Value:    m.Value(),
 					Time:     tm,
 				})
 			}
@@ -71,18 +100,26 @@ func NewJob(job *types.Job) error {
 
 	})
 
-	return nil
+	return err
 }
 
 func StartJobs() error {
 	_cron = cron.New()
 
+	var js []*types.Job
+	err := db.Engine.Find(&js)
+	if err != nil {
+		return err
+	}
+
+	for _, j := range js {
+		err = NewJob(j)
+		if err != nil {
+			log.Error(err)
+		}
+	}
+
 	//_, err := _cron.AddFunc("* * * * *", storeJob) //测试，每分钟执行一次
-	//_, err := _cron.AddFunc("@hourly", storeJob)
-	//_, err := _cron.AddFunc(config.Config.Crontab, storeJob)
-	//if err != nil {
-	//	return err
-	//}
 
 	_cron.Start()
 	return nil
@@ -91,5 +128,3 @@ func StartJobs() error {
 func StopJobs() {
 	_cron.Stop()
 }
-
-var last int64
