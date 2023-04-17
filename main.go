@@ -35,7 +35,7 @@ func getConfigureName() string {
 // @BasePath /app/history/api/
 // @query.collection.format multi
 func main() {
-	banner.Print()
+	banner.Print("iot-master-plugin:history")
 	build.Print()
 
 	cfg := getConfigureName()

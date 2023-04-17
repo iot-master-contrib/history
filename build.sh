@@ -4,7 +4,7 @@ go env -w GOPROXY=https://goproxy.cn,direct
 go env -w GOPRIVATE=*.gitlab.com,*.gitee.com
 go env -w GOSUMDB=off
 
-app="report"
+app="history"
 version="1.0.0"
 
 read -t 5 -p "please input version(default:$version)" ver
@@ -26,7 +26,7 @@ ldflags="-X '${pkg}.Version=$version' \
 export GOARCH=amd64
 
 export GOOS=windows
-go build -ldflags "$ldflags" -o report.exe main.go
+go build -ldflags "$ldflags" -o history.exe main.go
 
 export GOOS=linux
-go build -ldflags "$ldflags" -o report main.go
+go build -ldflags "$ldflags" -o history main.go
