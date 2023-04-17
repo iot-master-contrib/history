@@ -9,52 +9,52 @@ import (
 // @Summary 查询历史数量
 // @Schemes
 // @Description 查询历史
-// @Tags query
+// @Tags history
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
 // @Success 200 {object} ReplyData[int64] 返回历史数量
-// @Router /query/count [post]
+// @Router /history/count [post]
 func noopHistoryCount() {}
 
 // @Summary 查询历史
 // @Schemes
 // @Description 查询历史
-// @Tags query
+// @Tags history
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
 // @Success 200 {object} ReplyList[types.History] 返回历史信息
-// @Router /query/search [post]
+// @Router /history/search [post]
 func noopHistorySearch() {}
 
 // @Summary 查询历史
 // @Schemes
 // @Description 查询历史
-// @Tags query
+// @Tags history
 // @Param search query ParamList true "查询参数"
 // @Accept json
 // @Produce json
 // @Success 200 {object} ReplyList[types.History] 返回历史信息
-// @Router /query/list [get]
+// @Router /history/list [get]
 func noopHistoryList() {}
 
 // @Summary 删除历史
 // @Schemes
 // @Description 删除历史
-// @Tags query
+// @Tags history
 // @Param id path int true "历史ID"
 // @Accept json
 // @Produce json
 // @Success 200 {object} ReplyData[types.History] 返回历史信息
-// @Router /query/{id}/delete [get]
+// @Router /history/{id}/delete [get]
 func noopHistoryDelete() {}
 
-func queryExport(ctx *gin.Context) {
+func historyExport(ctx *gin.Context) {
 
 }
 
-func queryRouter(app *gin.RouterGroup) {
+func historyRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.History]())
 
@@ -64,5 +64,5 @@ func queryRouter(app *gin.RouterGroup) {
 
 	app.GET("/:id/delete", curd.ParseParamId, curd.ApiDelete[types.History](nil, nil))
 
-	app.POST("/export", queryExport)
+	app.POST("/export", historyExport)
 }

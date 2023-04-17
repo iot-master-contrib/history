@@ -486,7 +486,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/query/count": {
+        "/history/count": {
             "post": {
                 "description": "查询历史",
                 "consumes": [
@@ -496,7 +496,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "query"
+                    "history"
                 ],
                 "summary": "查询历史数量",
                 "parameters": [
@@ -520,7 +520,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/query/list": {
+        "/history/list": {
             "get": {
                 "description": "查询历史",
                 "consumes": [
@@ -530,7 +530,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "query"
+                    "history"
                 ],
                 "summary": "查询历史",
                 "parameters": [
@@ -555,7 +555,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/query/search": {
+        "/history/search": {
             "post": {
                 "description": "查询历史",
                 "consumes": [
@@ -565,7 +565,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "query"
+                    "history"
                 ],
                 "summary": "查询历史",
                 "parameters": [
@@ -589,7 +589,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/query/{id}/delete": {
+        "/history/{id}/delete": {
             "get": {
                 "description": "删除历史",
                 "consumes": [
@@ -599,7 +599,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "query"
+                    "history"
                 ],
                 "summary": "删除历史",
                 "parameters": [
@@ -616,6 +616,358 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/api.ReplyData-types_History"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/count": {
+            "post": {
+                "description": "查询计划任务数量",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "查询计划任务数量",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/create": {
+            "post": {
+                "description": "创建计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "创建计划任务",
+                "parameters": [
+                    {
+                        "description": "计划任务信息",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.Job"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/export": {
+            "get": {
+                "description": "导出计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导出计划任务",
+                "responses": {}
+            }
+        },
+        "/job/import": {
+            "post": {
+                "description": "导入计划任务",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导入计划任务",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/list": {
+            "get": {
+                "description": "查询计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "查询计划任务",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-types_Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/search": {
+            "post": {
+                "description": "查询计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "查询计划任务",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-types_Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/{id}": {
+            "get": {
+                "description": "获取计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "获取计划任务",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "计划任务ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_Job"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "修改计划任务",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "计划任务ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "计划任务信息",
+                        "name": "job",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.Job"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/{id}/delete": {
+            "get": {
+                "description": "删除计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "删除计划任务",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "计划任务ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/{id}/disable": {
+            "get": {
+                "description": "禁用计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "禁用计划任务",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "计划任务ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/{id}/enable": {
+            "get": {
+                "description": "启用计划任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "job"
+                ],
+                "summary": "启用计划任务",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "计划任务ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_Job"
                         }
                     }
                 }
@@ -683,6 +1035,17 @@ const docTemplate = `{
                 }
             }
         },
+        "api.ReplyData-types_Job": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Job"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
         "api.ReplyList-types_History": {
             "type": "object",
             "properties": {
@@ -700,9 +1063,29 @@ const docTemplate = `{
                 }
             }
         },
+        "api.ReplyList-types_Job": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.Job"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
         "api.Result": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
@@ -728,6 +1111,50 @@ const docTemplate = `{
                 },
                 "value": {
                     "type": "number"
+                }
+            }
+        },
+        "types.Job": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "crontab": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "points": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.Point"
+                    }
+                },
+                "product_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.Point": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "store increase average count",
+                    "type": "string"
                 }
             }
         }

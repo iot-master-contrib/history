@@ -29,6 +29,7 @@ func aggregateRouter(app *gin.RouterGroup) {
 }
 
 type Result struct {
+	Id    string  `json:"id"`
 	Name  string  `json:"name"`
 	Total float64 `json:"total"`
 }
@@ -50,7 +51,7 @@ func aggregateByArea(ctx *gin.Context) {
 
 	var results []Result
 	query := db.Engine.Table([]string{"history", "h"}).
-		Select("dg.name, sum(h.value) as total").
+		Select("dg.id, dg.name, sum(h.value) as total").
 		Join("INNER", []string{"device", "d"}, "d.id = h.device_id").
 		Join("INNER", []string{"device_area", "dg"}, "dg.id = d.group_id").
 		And("h.point = ?", point)
@@ -87,7 +88,7 @@ func aggregateByGroup(ctx *gin.Context) {
 
 	var results []Result
 	query := db.Engine.Table([]string{"history", "h"}).
-		Select("dg.name, sum(h.value) as total").
+		Select("dg.id, dg.name, sum(h.value) as total").
 		Join("INNER", []string{"device", "d"}, "d.id = h.device_id").
 		Join("INNER", []string{"device_group", "dg"}, "dg.id = d.group_id").
 		And("h.point = ?", point)
@@ -124,7 +125,7 @@ func aggregateByType(ctx *gin.Context) {
 
 	var results []Result
 	query := db.Engine.Table([]string{"history", "h"}).
-		Select("dg.name, sum(h.value) as total").
+		Select("dg.id, dg.name, sum(h.value) as total").
 		Join("INNER", []string{"device", "d"}, "d.id = h.device_id").
 		Join("INNER", []string{"device_type", "dg"}, "dg.id = d.type_id").
 		And("h.point = ?", point)
