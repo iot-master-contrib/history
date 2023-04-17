@@ -2,7 +2,7 @@ package internal
 
 import (
 	"github.com/zgwit/iot-master/v3/pkg/lib"
-	"report/types"
+	"history/types"
 )
 
 type Project struct {

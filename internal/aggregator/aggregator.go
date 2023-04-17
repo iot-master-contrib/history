@@ -2,7 +2,7 @@ package aggregator
 
 import (
 	"fmt"
-	"report/types"
+	"history/types"
 )
 
 type Aggregator interface {

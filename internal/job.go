@@ -6,8 +6,8 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/lib"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"report/internal/aggregator"
-	"report/types"
+	"history/internal/aggregator"
+	"history/types"
 	"time"
 )
 
