@@ -3,11 +3,6 @@ package main
 import (
 	"embed"
 	"encoding/json"
-	"github.com/iot-master-contribe/history/api"
-	"github.com/iot-master-contribe/history/config"
-	_ "github.com/iot-master-contribe/history/docs"
-	"github.com/iot-master-contribe/history/internal"
-	"github.com/iot-master-contribe/history/types"
 	"github.com/zgwit/iot-master/v3/pkg/banner"
 	"github.com/zgwit/iot-master/v3/pkg/build"
 	"github.com/zgwit/iot-master/v3/pkg/db"
@@ -17,6 +12,11 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"report/api"
+	"report/config"
+	_ "report/docs"
+	"report/internal"
+	"report/types"
 	"strings"
 )
 

@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+/report
 
 # Test binary, built with `go test -c`
 *.test
@@ -55,4 +56,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-/history

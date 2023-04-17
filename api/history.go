@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/iot-master-contribe/history/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
+	"report/types"
 )
 
 // @Summary 查询历史数量
