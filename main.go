@@ -58,7 +58,7 @@ func main() {
 
 	//同步表结构
 	err = db.Engine.Sync2(
-		new(types.History),
+		new(types.History), new(types.Job),
 	)
 	if err != nil {
 		log.Fatal(err)
