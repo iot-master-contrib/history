@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RouterModule, Routes } from '@angular/router'; 
 import { HistorysComponent } from './history/historys/historys.component';
+import { JobEditComponent } from './history/job/job-edit/job-edit.component';
+import { JobsComponent } from './history/job/jobs/jobs.component';
+import { PageNotFoundComponent } from './base/page-not-found/page-not-found.component';
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/alarm/alarms' },
-  { path: 'history/historys', component: HistorysComponent },
-  { path: '**', component: PageNotFoundComponent },
-
+  
+ { path: '', pathMatch: 'full', redirectTo: 'history' },
+    { path: 'history', component: HistorysComponent },
+    { path: 'job', component: JobsComponent },
+    { path: 'job/edit/:id', component: JobEditComponent },
+    { path: 'job/create', component: JobEditComponent },
+    { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
