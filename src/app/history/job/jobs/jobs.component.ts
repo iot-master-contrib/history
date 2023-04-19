@@ -112,7 +112,7 @@
               name: $event,
            //   Message: $event,
           };
-          console.log(this.query)
+          
           this.query.skip = 0;
           this.load();
       }
