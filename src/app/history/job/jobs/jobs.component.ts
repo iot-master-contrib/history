@@ -57,7 +57,7 @@
           this.loading = true;
           this.rs
               .post(this.url + 'job/search', this.query)
-              .subscribe((res) => {
+              .subscribe((res) => { console.log(res.data)
                   const { data, total } = res;
                   this.datum = data || [];
                   this.total = total || 0;

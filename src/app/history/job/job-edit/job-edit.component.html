@@ -10,14 +10,14 @@
 
 <nz-card [nzTitle]="id ? '编辑检查信息' : '创建检查信息'" [nzExtra]="extra">
     <form nz-form [formGroup]="group" (ngSubmit)="submit()">
-        <nz-form-item>
+        <!-- <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="aggregators"
                 >集合</nz-form-label
             >
             <nz-form-control [nzSm]="14" [nzXs]="24">
                 <input nz-input formControlName="aggregators" />
             </nz-form-control>
-        </nz-form-item>
+        </nz-form-item> -->
 
         <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_id"
@@ -38,6 +38,33 @@
             >
             <nz-form-control [nzSm]="14" [nzXs]="24">
                 <input nz-input formControlName="name" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="assign"
+                >分配</nz-form-label
+            >
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input formControlName="assign" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="expression"
+                >表示</nz-form-label
+            >
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input formControlName="expression" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type"
+                >类型</nz-form-label
+            >
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input formControlName="type" />
             </nz-form-control>
         </nz-form-item>
 

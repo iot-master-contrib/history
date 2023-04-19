@@ -93,7 +93,8 @@
             ></td>
             <td>{{ data.id }}</td>
             <td>{{ data.product_id }}</td>
-            <td>{{ data.aggregators }}</td>
+            <td> {{data.aggregators.assign||''}}</td>
+            <!-- {{'分配:'+ data.aggregators.assign +' '+'表示:'+ data.aggregators.expression +' '+'类型:'+ data.aggregators.type  }} -->
             <td>{{ data.crontab }}</td>
             <td>{{ data.desc }}</td>
             <td>{{ data.name }}</td>  
