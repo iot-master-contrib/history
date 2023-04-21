@@ -94,7 +94,7 @@ func main() {
 	web.RegisterSwaggerDocs(app.Group("/app/history"))
 
 	//前端静态文件
-	web.RegisterFS(app, http.FS(wwwFiles), "/app/history/", "index.html")
+	web.RegisterFS(app, http.FS(wwwFiles), "", "app/history/index.html")
 
 	//监听HTTP
 	log.Info("启动监听", config.Config.Web.Addr)
