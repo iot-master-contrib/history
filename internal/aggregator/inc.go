@@ -6,6 +6,8 @@ type incAggregator struct {
 	baseAggregator
 	first float64
 	last  float64
+
+	current float64 //TODO 数据漏传，使用均值？
 }
 
 func (a *incAggregator) Push(ctx map[string]interface{}) error {

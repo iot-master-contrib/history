@@ -8,8 +8,7 @@ import (
 type Aggregator interface {
 	Compile(expression string) error
 	Push(ctx map[string]interface{}) error
-	Value() float64
-	Dirty() bool
+	Pop() (float64, error)
 }
 
 // New 新建
