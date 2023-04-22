@@ -16,6 +16,8 @@ type Aggregator interface {
 func New(m *types.Aggregator) (agg Aggregator, err error) {
 	switch m.Type {
 	case "INC":
+		agg = &incAggregator{}
+	case "DEC":
 		agg = &decAggregator{}
 	case "SUM":
 		agg = &sumAggregator{}
