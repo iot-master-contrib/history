@@ -22,7 +22,7 @@ func (a *countAggregator) Push(ctx map[string]interface{}) error {
 
 func (a *countAggregator) Pop() (val float64, err error) {
 	//if a.count == 0 {
-	//	return 0, errors.New("无数据")
+	//	return 0, ErrorBlank
 	//}
 	val = a.count
 	a.count = 0

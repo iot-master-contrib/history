@@ -2,16 +2,17 @@ package aggregator
 
 import (
 	"context"
-	"errors"
 )
 
 type incAggregator struct {
 	baseAggregator
-	first float64
-	last  float64
 
-	dirty   bool
-	current float64 //TODO 数据漏传，使用均值？
+	hasLast bool
+
+	last    float64
+	current float64
+
+	dirty bool
 }
 
 func (a *incAggregator) Push(ctx map[string]interface{}) error {
@@ -19,22 +20,27 @@ func (a *incAggregator) Push(ctx map[string]interface{}) error {
 	if err != nil {
 		return err
 	}
-	a.last = res
-
-	if !a.dirty {
-		a.first = res
-		a.dirty = true
-	}
+	a.current = res
+	a.dirty = true
 
 	return nil
 }
 
 func (a *incAggregator) Pop() (val float64, err error) {
 	if !a.dirty {
-		return 0, errors.New("无数据")
+		return 0, ErrorBlank
 	}
 
-	val = a.last - a.first
+	if !a.hasLast {
+		a.hasLast = true
+		a.last = a.current
+		a.dirty = false
+		return 0, ErrorBlank
+	}
+
+	val = a.current - a.last
+	a.last = a.current
 	a.dirty = false
+
 	return
 }

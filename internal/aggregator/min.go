@@ -2,7 +2,6 @@ package aggregator
 
 import (
 	"context"
-	"errors"
 )
 
 type minAggregator struct {
@@ -29,7 +28,7 @@ func (a *minAggregator) Push(ctx map[string]interface{}) error {
 
 func (a *minAggregator) Pop() (val float64, err error) {
 	if !a.dirty {
-		return 0, errors.New("无数据")
+		return 0, ErrorBlank
 	}
 	val = a.value
 	a.dirty = false
