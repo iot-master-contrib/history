@@ -67,6 +67,7 @@ func NewJob(job *types.Job) error {
 	j := &Job{
 		model: *job,
 	}
+	jobs.Store(job.Id, j)
 
 	_, err := _cron.AddFunc(job.Crontab, func() {
 		now := time.Now()
@@ -79,7 +80,7 @@ func NewJob(job *types.Job) error {
 		j.devices.Range(func(name string, dev *Device) bool {
 			for k, m := range dev.aggregators {
 				stores = append(stores, types.History{
-					DeviceId: "",
+					DeviceId: name,
 					Point:    job.Aggregators[k].Assign,
 					Value:    m.Value(),
 					Time:     tm,
