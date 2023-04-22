@@ -23,7 +23,7 @@ func (a *avgAggregator) Push(ctx map[string]interface{}) error {
 
 func (a *avgAggregator) Pop() (val float64, err error) {
 	if a.count == 0 {
-		return 0, errors.New("无")
+		return 0, errors.New("无数据")
 	}
 	val = a.value / a.count
 	a.value = 0

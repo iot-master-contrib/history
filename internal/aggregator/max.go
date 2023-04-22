@@ -2,11 +2,13 @@ package aggregator
 
 import (
 	"context"
+	"errors"
 )
 
 type maxAggregator struct {
 	baseAggregator
 	value float64
+	dirty bool
 }
 
 func (a *maxAggregator) Push(ctx map[string]interface{}) error {
@@ -24,7 +26,10 @@ func (a *maxAggregator) Push(ctx map[string]interface{}) error {
 	return nil
 }
 
-func (a *maxAggregator) Value() (val float64) {
+func (a *maxAggregator) Pop() (val float64, err error) {
+	if !a.dirty {
+		return 0, errors.New("无数据")
+	}
 	val = a.value
 	a.dirty = false
 	return

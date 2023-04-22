@@ -1,11 +1,15 @@
 package aggregator
 
-import "context"
+import (
+	"context"
+	"errors"
+)
 
 type decAggregator struct {
 	baseAggregator
 	first float64
 	last  float64
+	dirty bool
 }
 
 func (a *decAggregator) Push(ctx map[string]interface{}) error {
@@ -23,7 +27,11 @@ func (a *decAggregator) Push(ctx map[string]interface{}) error {
 	return nil
 }
 
-func (a *decAggregator) Value() (val float64) {
+func (a *decAggregator) Pop() (val float64, err error) {
+	if !a.dirty {
+		return 0, errors.New("无数据")
+	}
+
 	val = a.first - a.last
 	a.dirty = false
 	return

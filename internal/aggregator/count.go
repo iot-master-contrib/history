@@ -1,6 +1,8 @@
 package aggregator
 
-import "context"
+import (
+	"context"
+)
 
 type countAggregator struct {
 	baseAggregator
@@ -15,13 +17,14 @@ func (a *countAggregator) Push(ctx map[string]interface{}) error {
 	if res {
 		a.count++
 	}
-	a.dirty = true
 	return nil
 }
 
-func (a *countAggregator) Value() (val float64) {
+func (a *countAggregator) Pop() (val float64, err error) {
+	//if a.count == 0 {
+	//	return 0, errors.New("无数据")
+	//}
 	val = a.count
 	a.count = 0
-	a.dirty = false
 	return
 }

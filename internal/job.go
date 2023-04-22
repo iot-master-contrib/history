@@ -79,11 +79,13 @@ func NewJob(job *types.Job) error {
 		var stores []types.History
 		j.devices.Range(func(name string, dev *Device) bool {
 			for k, m := range dev.aggregators {
-				if m.Dirty() {
+				if v, e := m.Pop(); e != nil {
+					log.Error(e)
+				} else {
 					stores = append(stores, types.History{
 						DeviceId: name,
 						Point:    job.Aggregators[k].Assign,
-						Value:    m.Value(),
+						Value:    v,
 						Time:     tm,
 					})
 				}
