@@ -131,14 +131,14 @@ func jobRouter(app *gin.RouterGroup) {
 	app.POST("/count", curd.ApiCount[types.Job]())
 	app.POST("/search", curd.ApiSearch[types.Job]())
 	app.GET("/list", curd.ApiList[types.Job]())
-	app.POST("/create", curd.ApiCreate[types.Job](curd.GenerateRandomId[types.Job](8), nil))
+	app.POST("/create", curd.ApiCreateHook[types.Job](curd.GenerateRandomId[types.Job](8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Job]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Job](nil, nil,
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Job](nil, nil,
 		"id", "name", "desc", "crontab", "product_id", "points", "disabled"))
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Job](nil, nil))
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Job](nil, nil))
 	app.GET("/export", curd.ApiExport[types.Job]("job"))
 	app.POST("/import", curd.ApiImport[types.Job]())
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Job](true, nil, nil))
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Job](false, nil, nil))
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Job](true, nil, nil))
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Job](false, nil, nil))
 }

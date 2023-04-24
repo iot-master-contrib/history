@@ -62,7 +62,7 @@ func historyRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[types.History]())
 
-	app.GET("/:id/delete", curd.ParseParamId, curd.ApiDelete[types.History](nil, nil))
+	app.GET("/:id/delete", curd.ParseParamId, curd.ApiDelete[types.History]())
 
 	app.POST("/export", historyExport)
 }
