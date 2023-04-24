@@ -1098,13 +1098,15 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "assign": {
+                    "description": "赋值",
                     "type": "string"
                 },
                 "expression": {
+                    "description": "表达式",
                     "type": "string"
                 },
                 "type": {
-                    "description": "inc avg count min max sum last first",
+                    "description": "聚合算法 inc dec avg count min max sum last first",
                     "type": "string"
                 }
             }
@@ -1119,12 +1121,14 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "point": {
+                    "description": "数据点",
                     "type": "string"
                 },
                 "time": {
                     "type": "string"
                 },
                 "value": {
+                    "description": "值",
                     "type": "number"
                 }
             }
@@ -1133,6 +1137,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "aggregators": {
+                    "description": "聚合器",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/types.Aggregator"
@@ -1142,18 +1147,22 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "crontab": {
+                    "description": "定时计划",
                     "type": "string"
                 },
                 "desc": {
+                    "description": "说明",
                     "type": "string"
                 },
                 "disabled": {
+                    "description": "禁用",
                     "type": "boolean"
                 },
                 "id": {
                     "type": "string"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "product_id": {

@@ -5,16 +5,16 @@ import "github.com/zgwit/iot-master/v3/model"
 type Job struct {
 	Id          string       `json:"id" xorm:"pk"`
 	ProductId   string       `json:"product_id" xorm:"index"`
-	Name        string       `json:"name"`
-	Desc        string       `json:"desc"`
-	Crontab     string       `json:"crontab"`
-	Aggregators []Aggregator `json:"aggregators"`
-	Disabled    bool         `json:"disabled"`
+	Name        string       `json:"name"`        //名称
+	Desc        string       `json:"desc"`        //说明
+	Crontab     string       `json:"crontab"`     //定时计划
+	Aggregators []Aggregator `json:"aggregators"` //聚合器
+	Disabled    bool         `json:"disabled"`    //禁用
 	Created     model.Time   `json:"created" xorm:"created"`
 }
 
 type Aggregator struct {
-	Expression string `json:"expression"`
-	Type       string `json:"type"` //inc avg count min max sum last first
-	Assign     string `json:"assign"`
+	Expression string `json:"expression"` //表达式
+	Type       string `json:"type"`       //聚合算法 inc dec avg count min max sum last first
+	Assign     string `json:"assign"`     //赋值
 }

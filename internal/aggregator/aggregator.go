@@ -14,23 +14,23 @@ type Aggregator interface {
 // New 新建
 func New(m *types.Aggregator) (agg Aggregator, err error) {
 	switch m.Type {
-	case "INC":
+	case "inc", "increase":
 		agg = &incAggregator{}
-	case "DEC":
+	case "dec", "decrease":
 		agg = &decAggregator{}
-	case "SUM":
+	case "sum":
 		agg = &sumAggregator{}
-	case "AVG":
+	case "avg", "average":
 		agg = &avgAggregator{}
-	case "COUNT":
+	case "count":
 		agg = &countAggregator{}
-	case "MIN":
+	case "min", "minimum":
 		agg = &minAggregator{}
-	case "MAX":
+	case "max", "maximum":
 		agg = &maxAggregator{}
-	case "FIRST":
+	case "first":
 		agg = &firstAggregator{}
-	case "LAST":
+	case "last":
 		agg = &lastAggregator{}
 	default:
 		err = fmt.Errorf("Unknown type %s ", m.Type)
