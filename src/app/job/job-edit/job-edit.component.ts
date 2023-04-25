@@ -34,7 +34,7 @@ export class JobEditComponent implements OnInit {
     ngOnInit(): void {
         if (this.route.snapshot.paramMap.has('id')) {
             this.id = this.route.snapshot.paramMap.get('id');
-            this.rs.get(this.url + `job/${this.id}`).subscribe((res) => {
+            this.rs.get(this.url + `job/${this.id}`).subscribe((res) => { 
                 //let data = res.data;
                 this.build(res.data);
             });
@@ -138,19 +138,18 @@ export class JobEditComponent implements OnInit {
         this.fb.group({
             assign: ['', []],
             expression: ['', []],
-         type: ['', []] 
+         type: ['first', []] 
         })
       )
     }
-
+     
       }
       getValueData() {
          
         const parametersGroup = this.parametersChild.group;
         const parameters = parametersGroup.get('keyName').controls.map((item: { value: any; }) => item.value);
-       
-    
-        return {   parameters  };
+        return    parameters   ;
+      
       }
     submit() {
         let value = this.group.value;
@@ -159,22 +158,10 @@ export class JobEditComponent implements OnInit {
                 ? this.url + `job/${this.id}`
                 : this.url + `job/create`;
 
-            this.group.patchValue({
-                aggregators: [
-                    {
-                        assign: value.assign,
-                        expression: value.expression,
-                        type: value.type,
-                    },
-                ],
-            });
-            const {   parameters  } = this.getValueData();
-            this.group.patchValue({
-                aggregators:   parameters
-            });
-            if (value.crontab)
-                this.group.patchValue({ crontab: value.crontab + this.add });
-            this.rs.post(url, this.group.value).subscribe((res) => {
+           const sendData = JSON.parse(JSON.stringify(this.group.value));
+           sendData.aggregators = this.getValueData();
+        
+            this.rs.post(url, sendData).subscribe((res) => {
                 this.handleCancel();
                 this.msg.success('保存成功');
             });
