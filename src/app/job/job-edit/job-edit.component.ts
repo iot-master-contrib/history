@@ -34,7 +34,7 @@ export class JobEditComponent implements OnInit {
     ngOnInit(): void {
         if (this.route.snapshot.paramMap.has('id')) {
             this.id = this.route.snapshot.paramMap.get('id');
-            this.rs.get(this.url + `job/${this.id}`).subscribe((res) => { 
+            this.rs.get(this.url + `job/${this.id}`).subscribe((res) => {
                 //let data = res.data;
                 this.build(res.data);
             });
@@ -43,7 +43,7 @@ export class JobEditComponent implements OnInit {
         this.build();
 
         this.rs
-            .post('api/product/search', {})
+            .post('/api/product/search', {})
             .subscribe((res) => {
                 const data: any[] = [];
 
@@ -80,12 +80,12 @@ export class JobEditComponent implements OnInit {
         }, {
           title: '表达式',
           keyName: 'expression'
-        }, 
+        },
         {
           title: '聚合算法',
           keyName: 'type',
           type: 'select',
-          listOfOption: 
+          listOfOption:
           [{
             label: 'inc',
             value: 'inc'
@@ -105,12 +105,12 @@ export class JobEditComponent implements OnInit {
             label: 'min',
             value: 'min'
           },
-          
+
           {
             label: 'max',
             value: 'max'
           },
-          
+
 
           {
             label: 'sum',
@@ -126,10 +126,10 @@ export class JobEditComponent implements OnInit {
             label: 'first',
             value: 'first'
           }]
-        } 
-      ] 
+        }
+      ]
 
-      
+
       parameterAdd($event:any){
 
         $event.stopPropagation()
@@ -138,18 +138,18 @@ export class JobEditComponent implements OnInit {
         this.fb.group({
             assign: ['', []],
             expression: ['', []],
-         type: ['first', []] 
+         type: ['first', []]
         })
       )
     }
-     
+
       }
       getValueData() {
-         
+
         const parametersGroup = this.parametersChild.group;
         const parameters = parametersGroup.get('keyName').controls.map((item: { value: any; }) => item.value);
         return    parameters   ;
-      
+
       }
     submit() {
         let value = this.group.value;
@@ -160,7 +160,7 @@ export class JobEditComponent implements OnInit {
 
            const sendData = JSON.parse(JSON.stringify(this.group.value));
            sendData.aggregators = this.getValueData();
-        
+
             this.rs.post(url, sendData).subscribe((res) => {
                 this.handleCancel();
                 this.msg.success('保存成功');

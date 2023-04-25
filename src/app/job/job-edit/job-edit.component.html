@@ -8,7 +8,7 @@
     </button>
 </ng-template>
 
-<nz-card [nzTitle]="id ? '编辑检查信息' : '创建检查信息'" [nzExtra]="extra">
+<nz-card [nzTitle]="id ? '编辑计划任务' : '创建计划任务'" [nzExtra]="extra">
     <form nz-form [formGroup]="group" (ngSubmit)="submit()">
         <!-- <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="aggregators"
@@ -90,13 +90,13 @@
 
                 <input nz-input  formControlName="crontab" />
 
-               
-                  
+
+
             </nz-form-control>
         </nz-form-item>
- 
+
         <nz-collapse>
-          
+
             <ng-template #parameterEx>
               <button type="button" nz-button nzType="primary" (click)="parameterAdd($event)">
                 <i type="button" nz-icon nzType="plus"></i>
@@ -106,11 +106,11 @@
             <nz-collapse-panel nzHeader="聚合器" [nzExtra]="parameterEx">
               <app-edit-table formControlName="aggregators" #parametersChild [listData]="parameterslistData"></app-edit-table>
             </nz-collapse-panel>
-         
+
           </nz-collapse>
 
 
-         
+
     </form>
     <ng-template #addOnAfterTemplate>
         <nz-select [ngModel]="add" style="width: 60px">
