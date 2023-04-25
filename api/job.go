@@ -134,7 +134,7 @@ func jobRouter(app *gin.RouterGroup) {
 	app.POST("/create", curd.ApiCreateHook[types.Job](curd.GenerateRandomId[types.Job](8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Job]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Job](nil, nil,
-		"id", "name", "desc", "crontab", "product_id", "points", "disabled"))
+		"id", "product_id", "name", "desc", "crontab", "aggregators", "disabled"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Job](nil, nil))
 	app.GET("/export", curd.ApiExport[types.Job]("job"))
 	app.POST("/import", curd.ApiImport[types.Job]())
