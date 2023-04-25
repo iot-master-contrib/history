@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/request.service';
@@ -13,6 +13,7 @@ export class JobEditComponent implements OnInit {
     group!: FormGroup;
     id: any = 0;
     add: string = 's';
+    @ViewChild('parametersChild') parametersChild: any;
     listOfOption: any[] = [
         { value: 'aa', label: 11 },
         { value: 'bb', label: 12 },
@@ -72,13 +73,92 @@ export class JobEditComponent implements OnInit {
         });
     }
 
+    parameterslistData = [
+        {
+          title: '赋值',
+          keyName: 'assign'
+        }, {
+          title: '表达式',
+          keyName: 'expression'
+        }, 
+        {
+          title: '聚合算法',
+          keyName: 'type',
+          type: 'select',
+          listOfOption: 
+          [{
+            label: 'inc',
+            value: 'inc'
+          }, {
+            label: 'dec',
+            value: 'dec'
+          },
+          {
+            label: 'avg',
+            value: 'avg'
+          },
+          {
+            label: 'count',
+            value: 'count'
+          },
+          {
+            label: 'min',
+            value: 'min'
+          },
+          
+          {
+            label: 'max',
+            value: 'max'
+          },
+          
+
+          {
+            label: 'sum',
+            value: 'sum'
+          }
+          ,
+          {
+            label: 'last',
+            value: 'last'
+          }
+          ,
+          {
+            label: 'first',
+            value: 'first'
+          }]
+        } 
+      ] 
+
+      
+      parameterAdd($event:any){
+
+        $event.stopPropagation()
+    if (this.parametersChild) {
+      this.parametersChild.group.get('keyName').controls.unshift(
+        this.fb.group({
+            assign: ['', []],
+            expression: ['', []],
+         type: ['', []] 
+        })
+      )
+    }
+
+      }
+      getValueData() {
+         
+        const parametersGroup = this.parametersChild.group;
+        const parameters = parametersGroup.get('keyName').controls.map((item: { value: any; }) => item.value);
+       
+    
+        return {   parameters  };
+      }
     submit() {
         let value = this.group.value;
         if (this.group.valid) {
             let url = this.id
                 ? this.url + `job/${this.id}`
                 : this.url + `job/create`;
-            
+
             this.group.patchValue({
                 aggregators: [
                     {
@@ -88,8 +168,12 @@ export class JobEditComponent implements OnInit {
                     },
                 ],
             });
-
-            this.group.patchValue({ crontab: value.crontab + this.add });
+            const {   parameters  } = this.getValueData();
+            this.group.patchValue({
+                aggregators:   parameters
+            });
+            if (value.crontab)
+                this.group.patchValue({ crontab: value.crontab + this.add });
             this.rs.post(url, this.group.value).subscribe((res) => {
                 this.handleCancel();
                 this.msg.success('保存成功');

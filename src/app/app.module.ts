@@ -29,6 +29,8 @@ import {APP_BASE_HREF } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BaseModule} from "./base/base.module";
 import {NzCardModule} from "ng-zorro-antd/card";
+import { NzCollapseModule } from 'ng-zorro-antd/collapse'; 
+ 
 registerLocaleData(zh);
 
 @NgModule({
@@ -42,6 +44,8 @@ registerLocaleData(zh);
     BrowserModule,
     NzButtonModule,
     NzDividerModule,
+    NzCollapseModule,
+    NzSpaceModule,
     NzTableModule ,
     NzSpaceModule,
     NzMessageModule,

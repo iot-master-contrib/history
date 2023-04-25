@@ -96,6 +96,21 @@
             </nz-form-control>
         </nz-form-item>
  
+        <nz-collapse>
+          
+            <ng-template #parameterEx>
+              <button type="button" nz-button nzType="primary" (click)="parameterAdd($event)">
+                <i type="button" nz-icon nzType="plus"></i>
+                添加
+              </button>
+            </ng-template>
+            <nz-collapse-panel nzHeader="聚合器" [nzExtra]="parameterEx">
+              <app-edit-table formControlName="aggregators" #parametersChild [listData]="parameterslistData"></app-edit-table>
+            </nz-collapse-panel>
+         
+          </nz-collapse>
+
+
          
     </form>
     <ng-template #addOnAfterTemplate>

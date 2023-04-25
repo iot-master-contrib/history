@@ -1,3 +1,4 @@
+import { EditTableComponent } from './edit-table/edit-table.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -8,11 +9,10 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzSelectModule } from "ng-zorro-antd/select";
-import { NzTableModule } from "ng-zorro-antd/table";
+import { NzTableModule } from "ng-zorro-antd/table"; 
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
-
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number'; 
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
@@ -24,18 +24,21 @@ import { CustomPaginationComponent } from './custom-pagination/custom-pagination
     PageNotFoundComponent,
     ToolbarComponent,
     SearchBoxComponent,
+    EditTableComponent,
     CustomPaginationComponent,
   ],
   exports: [
     DatePipe,
     PageNotFoundComponent,
     ToolbarComponent,
+    EditTableComponent,
     SearchBoxComponent,
     CustomPaginationComponent,
   ],
   imports: [
     CommonModule,
     NzInputModule,
+    NzSpaceModule,
     NzButtonModule,
     NzPaginationModule,
     FormsModule,
