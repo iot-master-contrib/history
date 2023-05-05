@@ -58,7 +58,15 @@ func historyRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.History]())
 
-	app.POST("/search", curd.ApiSearch[types.History]())
+	app.POST("/search", curd.ApiSearchWith[types.History]("history", []curd.Join{
+		{
+			Table:        "device",
+			LocaleField:  "device_id",
+			ForeignField: "id",
+			Field:        "name",
+			As:           "device",
+		},
+	}))
 
 	app.GET("/list", curd.ApiList[types.History]())
 

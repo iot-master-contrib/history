@@ -1114,6 +1114,9 @@ const docTemplate = `{
         "types.History": {
             "type": "object",
             "properties": {
+                "device": {
+                    "type": "string"
+                },
                 "device_id": {
                     "type": "string"
                 },

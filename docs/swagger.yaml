@@ -91,6 +91,8 @@ definitions:
     type: object
   types.History:
     properties:
+      device:
+        type: string
       device_id:
         type: string
       id:

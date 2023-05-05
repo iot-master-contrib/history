@@ -36,9 +36,9 @@
                 (nzCheckedChange)="handleAllChecked($event)"
             ></th>
             <th nzColumnKey="id" [nzSortFn]="true">ID</th>
-            <th nzColumnKey="device_id">设备ID</th>
-            <th nzColumnKey="point">数据点位</th> 
-            <th nzColumnKey="value">数据</th> 
+            <th nzColumnKey="device_id">设备</th>
+            <th nzColumnKey="point">数据点位</th>
+            <th nzColumnKey="value">数据</th>
             <th nzColumnKey="time" [nzSortFn]="true">日期</th>
             <th>操作</th>
         </tr>
@@ -54,8 +54,8 @@
                 (nzCheckedChange)="handleItemChecked(data.id, $event)"
             ></td>
             <td>{{ data.id }}</td>
-            <td>{{ data.device_id }}</td>
-            <td>{{ data.point }}</td> 
+            <td>{{ data.device || data.device_id }}</td>
+            <td>{{ data.point }}</td>
             <td>{{ data.value }}</td>
             <td>{{ data.time | date }}</td>
             <td>
