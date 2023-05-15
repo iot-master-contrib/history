@@ -217,7 +217,7 @@ func createAggregateByDate(format string) gin.HandlerFunc {
 
 		var results []ResultTime
 		query := db.Engine.Table([]string{"history", "h"}).
-			Select("date_format(h.time, '" + format + "') as time, sum(h.value) as total")
+			Select("date_format(h.time, '" + format + "') as date, sum(h.value) as total")
 		if param.Type != "" || param.Area != "" || param.Group != "" {
 			query.Join("INNER", []string{"device", "d"}, "d.id = h.device_id")
 
@@ -239,7 +239,7 @@ func createAggregateByDate(format string) gin.HandlerFunc {
 		if param.End != "" {
 			query.And("h.time <= ?", param.End)
 		}
-		err = query.GroupBy("time").Find(&results)
+		err = query.GroupBy("date").Find(&results)
 		if err != nil {
 			curd.Error(ctx, err)
 			return
