@@ -149,6 +149,11 @@ type ResultTime struct {
 	Total float64 `json:"total"`
 }
 
+type ResultDate struct {
+	Date  string  `json:"date"`
+	Total float64 `json:"total"`
+}
+
 type ParamAggregate struct {
 	Point string `form:"point" json:"point"` //数据点位
 	Start string `form:"start" json:"start"` //起始时间
@@ -174,7 +179,7 @@ func aggregateHistory(ctx *gin.Context) {
 		return
 	}
 
-	var results []ResultTime
+	var results []ResultDate
 	query := db.Engine.Table([]string{"history", "h"}).
 		Select("h.time, sum(h.value) as total")
 	if param.Type != "" || param.Area != "" || param.Group != "" {
