@@ -228,7 +228,11 @@ func createAggregateByDate(format string) gin.HandlerFunc {
 		var results []ResultTime
 		query := db.Engine.Table([]string{"history", "h"}).
 			Select("date_format(h.time, '" + format + "') as date, sum(h.value) as total")
-		if param.Type != "" || param.Area != "" || param.Group != "" {
+		if param.Id != "" {
+			//查询单个设备的报表
+			query.And("h.device_id = ?", param.Id)
+		} else if param.Type != "" || param.Area != "" || param.Group != "" {
+			//按类型，区域，分组查询
 			query.Join("INNER", []string{"device", "d"}, "d.id = h.device_id")
 
 			if param.Type != "" {
