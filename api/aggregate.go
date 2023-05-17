@@ -161,6 +161,7 @@ type ParamAggregate struct {
 	Type  string `form:"type" json:"type"`   //设备类型
 	Area  string `form:"area" json:"area"`   //设备区域
 	Group string `form:"group" json:"group"` //设备分组
+	Id    string `form:"id" json:"id"`       //设备ID
 }
 
 // @Summary 原始数据按时间统计
@@ -182,7 +183,11 @@ func aggregateHistory(ctx *gin.Context) {
 	var results []ResultDate
 	query := db.Engine.Table([]string{"history", "h"}).
 		Select("h.time, sum(h.value) as total")
-	if param.Type != "" || param.Area != "" || param.Group != "" {
+	if param.Id != "" {
+		//查询单个设备的报表
+		query.And("h.device_id = ?", param.Id)
+	} else if param.Type != "" || param.Area != "" || param.Group != "" {
+		//按类型，区域，分组查询
 		query.Join("INNER", []string{"device", "d"}, "d.id = h.device_id")
 
 		if param.Type != "" {

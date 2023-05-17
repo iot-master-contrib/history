@@ -46,6 +46,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
+                        "description": "设备ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
                         "description": "数据点位",
                         "name": "point",
                         "in": "query"
@@ -141,6 +147,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "设备分组",
                         "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备ID",
+                        "name": "id",
                         "in": "query"
                     },
                     {
@@ -244,6 +256,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
+                        "description": "设备ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
                         "description": "数据点位",
                         "name": "point",
                         "in": "query"
@@ -302,6 +320,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
+                        "description": "设备ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
                         "description": "数据点位",
                         "name": "point",
                         "in": "query"
@@ -356,6 +380,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "设备分组",
                         "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备ID",
+                        "name": "id",
                         "in": "query"
                     },
                     {
@@ -455,6 +485,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "设备分组",
                         "name": "group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "设备ID",
+                        "name": "id",
                         "in": "query"
                     },
                     {

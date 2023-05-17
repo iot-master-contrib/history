@@ -154,6 +154,10 @@ paths:
         in: query
         name: group
         type: string
+      - description: 设备ID
+        in: query
+        name: id
+        type: string
       - description: 数据点位
         in: query
         name: point
@@ -218,6 +222,10 @@ paths:
       - description: 设备分组
         in: query
         name: group
+        type: string
+      - description: 设备ID
+        in: query
+        name: id
         type: string
       - description: 数据点位
         in: query
@@ -284,6 +292,10 @@ paths:
         in: query
         name: group
         type: string
+      - description: 设备ID
+        in: query
+        name: id
+        type: string
       - description: 数据点位
         in: query
         name: point
@@ -322,6 +334,10 @@ paths:
         in: query
         name: group
         type: string
+      - description: 设备ID
+        in: query
+        name: id
+        type: string
       - description: 数据点位
         in: query
         name: point
@@ -359,6 +375,10 @@ paths:
       - description: 设备分组
         in: query
         name: group
+        type: string
+      - description: 设备ID
+        in: query
+        name: id
         type: string
       - description: 数据点位
         in: query
@@ -424,6 +444,10 @@ paths:
       - description: 设备分组
         in: query
         name: group
+        type: string
+      - description: 设备ID
+        in: query
+        name: id
         type: string
       - description: 数据点位
         in: query
