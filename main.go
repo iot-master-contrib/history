@@ -4,15 +4,11 @@ import (
 	"embed"
 	"encoding/json"
 	"github.com/iot-master-contrib/history/api"
-	"github.com/iot-master-contrib/history/config"
 	_ "github.com/iot-master-contrib/history/docs"
 	"github.com/iot-master-contrib/history/internal"
 	"github.com/iot-master-contrib/history/types"
 	"github.com/zgwit/iot-master/v3/model"
-	"github.com/zgwit/iot-master/v3/pkg/banner"
-	"github.com/zgwit/iot-master/v3/pkg/build"
 	"github.com/zgwit/iot-master/v3/pkg/db"
-	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"github.com/zgwit/iot-master/v3/pkg/web"
 	"net/http"
@@ -31,13 +27,12 @@ func main() {
 
 func Startup(app *web.Engine) error {
 	//同步表结构
-	err = db.Engine.Sync2(
+	err := db.Engine.Sync2(
 		new(types.History), new(types.Job),
 	)
 	if err != nil {
 		return err
 	}
-
 
 	internal.SubscribeProperty(mqtt.Client)
 
