@@ -18,6 +18,7 @@ func App() *model.App {
 	return &model.App{
 		Id:   "history",
 		Name: "历史数据",
+		Icon: "/app/history/assets/history.svg",
 		Entries: []model.AppEntry{{
 			Path: "app/history/history",
 			Name: "历史数据",
@@ -27,7 +28,6 @@ func App() *model.App {
 		}},
 		Type:    "tcp",
 		Address: "http://localhost" + web.GetOptions().Addr,
-		Icon:    "/app/history/assets/history.svg",
 	}
 }
 
