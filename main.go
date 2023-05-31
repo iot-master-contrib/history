@@ -30,23 +30,6 @@ func main() {
 }
 
 func Startup(app *web.Engine) error {
-	banner.Print("iot-master-plugin:history")
-	build.Print()
-
-	config.Load()
-
-	err := log.Open()
-	if err != nil {
-		return err
-	}
-
-	//加载数据库
-	err = db.Open()
-	if err != nil {
-		return err
-	}
-	//defer db.Close()
-
 	//同步表结构
 	err = db.Engine.Sync2(
 		new(types.History), new(types.Job),
@@ -54,13 +37,6 @@ func Startup(app *web.Engine) error {
 	if err != nil {
 		return err
 	}
-
-	//MQTT总线
-	err = mqtt.Open()
-	if err != nil {
-		return err
-	}
-	//defer mqtt.Close()
 
 
 	internal.SubscribeProperty(mqtt.Client)
