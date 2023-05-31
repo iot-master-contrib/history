@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/history/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
-	"history/types"
 )
 
 // @Summary 查询历史数量
@@ -58,7 +58,7 @@ func historyRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.History]())
 
-	app.POST("/search", curd.ApiSearchWith[types.History]("history", []curd.Join{
+	app.POST("/search", curd.ApiSearchWith[types.History]("history", []*curd.Join{
 		{
 			Table:        "device",
 			LocaleField:  "device_id",

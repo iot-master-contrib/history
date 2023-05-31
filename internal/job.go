@@ -1,13 +1,13 @@
 package internal
 
 import (
+	"github.com/iot-master-contrib/history/internal/aggregator"
+	"github.com/iot-master-contrib/history/types"
 	"github.com/robfig/cron/v3"
 	"github.com/zgwit/iot-master/v3/model"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/lib"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"history/internal/aggregator"
-	"history/types"
 	"time"
 )
 

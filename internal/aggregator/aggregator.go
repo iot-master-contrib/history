@@ -2,7 +2,7 @@ package aggregator
 
 import (
 	"fmt"
-	"history/types"
+	"github.com/iot-master-contrib/history/types"
 )
 
 type Aggregator interface {

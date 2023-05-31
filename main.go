@@ -1,8 +1,13 @@
-package main
+package history
 
 import (
 	"embed"
 	"encoding/json"
+	"github.com/iot-master-contrib/history/api"
+	"github.com/iot-master-contrib/history/config"
+	_ "github.com/iot-master-contrib/history/docs"
+	"github.com/iot-master-contrib/history/internal"
+	"github.com/iot-master-contrib/history/types"
 	"github.com/zgwit/iot-master/v3/model"
 	"github.com/zgwit/iot-master/v3/pkg/banner"
 	"github.com/zgwit/iot-master/v3/pkg/build"
@@ -10,11 +15,6 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"github.com/zgwit/iot-master/v3/pkg/web"
-	"history/api"
-	"history/config"
-	_ "history/docs"
-	"history/internal"
-	"history/types"
 	"net/http"
 )
 
@@ -27,6 +27,9 @@ var wwwFiles embed.FS
 // @BasePath /app/history/api/
 // @query.collection.format multi
 func main() {
+}
+
+func Startup(app *web.Engine) error {
 	banner.Print("iot-master-plugin:history")
 	build.Print()
 
@@ -34,33 +37,50 @@ func main() {
 
 	err := log.Open()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	//加载数据库
 	err = db.Open()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
-	defer db.Close()
+	//defer db.Close()
 
 	//同步表结构
 	err = db.Engine.Sync2(
 		new(types.History), new(types.Job),
 	)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	//MQTT总线
 	err = mqtt.Open()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
-	defer mqtt.Close()
+	//defer mqtt.Close()
 
-	//注册应用
-	//for _, v := range config.Config.Apps {
+
+	internal.SubscribeProperty(mqtt.Client)
+
+	err = internal.StartJobs()
+	if err != nil {
+		return err
+	}
+	//defer internal.StopJobs()
+
+	//注册前端接口
+	api.RegisterRoutes(app.Group("/app/history/api"))
+
+	//注册接口文档
+	web.RegisterSwaggerDocs(app.Group("/app/history"), "history")
+
+	return nil
+}
+
+func Register() error {
 	payload, _ := json.Marshal(model.App{
 		Id:   "history",
 		Name: "历史数据",
@@ -73,30 +93,19 @@ func main() {
 		}},
 		Type:    "tcp",
 		Address: "http://localhost" + web.GetOptions().Addr,
-		Icon: "/app/history/assets/history.svg",
+		Icon:    "/app/history/assets/history.svg",
 	})
-	_ = mqtt.Publish("master/register", payload, false, 0)
-	//}
+	return mqtt.Publish("master/register", payload, false, 0)
+}
 
-	internal.SubscribeProperty(mqtt.Client)
-
-	err = internal.StartJobs()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer internal.StopJobs()
-
-	app := web.CreateEngine()
-
-	//注册前端接口
-	api.RegisterRoutes(app.Group("/app/history/api"))
-
-	//注册接口文档
-	web.RegisterSwaggerDocs(app.Group("/app/history"))
-
+func Static(fs *web.FileSystem) {
 	//前端静态文件
-	app.RegisterFS(http.FS(wwwFiles), "", "app/history/index.html")
+	fs.Put("/app/history", http.FS(wwwFiles), "", "app/history/index.html")
+}
 
-	//监听HTTP
-	app.Serve()
+func Shutdown() error {
+
+	//只关闭Web就行了，其他通过defer关闭
+
+	return nil
 }

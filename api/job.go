@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/history/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
-	"history/types"
 )
 
 // @Summary 查询计划任务数量
@@ -136,8 +136,8 @@ func jobRouter(app *gin.RouterGroup) {
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Job](nil, nil,
 		"id", "product_id", "name", "desc", "crontab", "aggregators", "disabled"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Job](nil, nil))
-	app.GET("/export", curd.ApiExport[types.Job]("job"))
-	app.POST("/import", curd.ApiImport[types.Job]())
+	app.GET("/export", curd.ApiExport("job", "job"))
+	app.POST("/import", curd.ApiImport("job"))
 
 	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Job](true, nil, nil))
 	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Job](false, nil, nil))
