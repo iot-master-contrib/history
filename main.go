@@ -14,6 +14,23 @@ import (
 	"net/http"
 )
 
+func App() *model.App {
+	return &model.App{
+		Id:   "history",
+		Name: "历史数据",
+		Entries: []model.AppEntry{{
+			Path: "app/history/history",
+			Name: "历史数据",
+		}, {
+			Path: "app/history/job",
+			Name: "计划任务",
+		}},
+		Type:    "tcp",
+		Address: "http://localhost" + web.GetOptions().Addr,
+		Icon:    "/app/history/assets/history.svg",
+	}
+}
+
 //go:embed all:app/history
 var wwwFiles embed.FS
 
@@ -52,20 +69,7 @@ func Startup(app *web.Engine) error {
 }
 
 func Register() error {
-	payload, _ := json.Marshal(model.App{
-		Id:   "history",
-		Name: "历史数据",
-		Entries: []model.AppEntry{{
-			Path: "app/history/history",
-			Name: "历史数据",
-		}, {
-			Path: "app/history/job",
-			Name: "计划任务",
-		}},
-		Type:    "tcp",
-		Address: "http://localhost" + web.GetOptions().Addr,
-		Icon:    "/app/history/assets/history.svg",
-	})
+	payload, _ := json.Marshal(App())
 	return mqtt.Publish("master/register", payload, false, 0)
 }
 
