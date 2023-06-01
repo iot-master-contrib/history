@@ -1,6 +1,6 @@
 package types
 
-import "github.com/zgwit/iot-master/v3/model"
+import "time"
 
 type Job struct {
 	Id          string       `json:"id" xorm:"pk"`
@@ -10,7 +10,7 @@ type Job struct {
 	Crontab     string       `json:"crontab"`     //定时计划
 	Aggregators []Aggregator `json:"aggregators"` //聚合器
 	Disabled    bool         `json:"disabled"`    //禁用
-	Created     model.Time   `json:"created" xorm:"created"`
+	Created     time.Time    `json:"created" xorm:"created"`
 }
 
 type Aggregator struct {

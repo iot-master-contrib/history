@@ -4,7 +4,6 @@ import (
 	"github.com/iot-master-contrib/history/internal/aggregator"
 	"github.com/iot-master-contrib/history/types"
 	"github.com/robfig/cron/v3"
-	"github.com/zgwit/iot-master/v3/model"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/lib"
 	"github.com/zgwit/iot-master/v3/pkg/log"
@@ -71,7 +70,7 @@ func NewJob(job *types.Job) error {
 
 	_, err := _cron.AddFunc(job.Crontab, func() {
 		now := time.Now()
-		tm := model.Time(now)
+		tm := now
 		//ts := now.Unix()
 
 		log.Info("[Job] active ", now, job.Id, job.Name)
